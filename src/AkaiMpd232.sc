@@ -10,7 +10,7 @@ AkaiMpd232 : DzMidiAbstractDevice {
 			padNumbers = padNumbers + (0..15);
 		};
 		innerFunc = this.pr_padInnerFunction(func, padNumbers);
-		^ this.pr_noteOn(innerFunc, padNumbers, channel, this.srcId(0))
+		^ responderBuilder.noteOn(innerFunc, padNumbers, channel, this.srcId(0))
 	}
 
 	padsOff {
@@ -20,7 +20,7 @@ AkaiMpd232 : DzMidiAbstractDevice {
 			padNumbers = padNumbers + (0..15);
 		};
 		innerFunc = this.pr_padInnerFunction(func, padNumbers);
-		^ this.pr_noteOff(innerFunc, padNumbers, channel, this.srcId(0));
+		^ responderBuilder.noteOff(innerFunc, padNumbers, channel, this.srcId(0));
 	}
 
 	polytouch {
@@ -30,7 +30,7 @@ AkaiMpd232 : DzMidiAbstractDevice {
 			padNumbers = padNumbers + (0..15);
 		};
 		innerFunc = this.pr_padInnerFunction(func, padNumbers);
-		^ this.pr_polytouch(innerFunc, padNumbers, channel, this.srcId(0));
+		^ responderBuilder.polytouch(innerFunc, padNumbers, channel, this.srcId(0));
 	}
 
 	pr_padInnerFunction {
@@ -56,37 +56,37 @@ AkaiMpd232 : DzMidiAbstractDevice {
 	transport {
 		arg func;
 		var buttons = this.transportCcSymbols();
-		^ this.pr_ccSet(func, buttons.keys.postln, 0, buttons, this.srcId(0).postln);
+		^ responderBuilder.ccSet(func, buttons.keys.postln, 0, buttons, this.srcId(0).postln);
 	}
 
 	sliders {
 		arg func, firstCc = 20, chan;
-		^ this.pr_ccArray(func, firstCc, 8, chan, this.srcId(0), "Slider %");
+		^ responderBuilder.ccArray(func, firstCc, 8, chan, this.srcId(0), "Slider %");
 	}
 
 	knobs {
 		arg func, firstCc = 12, chan;
-		^ this.pr_ccArray(func, firstCc, 8, chan, this.srcId(0), "Knob %");
+		^ responderBuilder.ccArray(func, firstCc, 8, chan, this.srcId(0), "Knob %");
 	}
 
 	buttons {
 		arg onFunc, offFunc, firstCc = 28, chan;
-		^ this.pr_ccButtonArray(onFunc, offFunc, firstCc, 8, chan, this.srcId(0), "Butty %");
+		^ responderBuilder.ccButtonArray(onFunc, offFunc, firstCc, 8, chan, this.srcId(0), "Butty %");
 	}
 
 	stop {
 		arg func;
-		^ this.pr_cc(func, 117, 0, this.srcId(0));
+		^ responderBuilder.cc(func, 117, 0, this.srcId(0));
 	}
 
 	play {
 		arg func;
-		^ this.pr_cc(func, 118, 0, this.srcId(0));
+		^ responderBuilder.cc(func, 118, 0, this.srcId(0));
 	}
 
 	record {
 		arg func;
-		^ this.pr_cc(func, 119, 0, this.srcId(0));
+		^ responderBuilder.cc(func, 119, 0, this.srcId(0));
 	}
 
 	transportCcSymbols {

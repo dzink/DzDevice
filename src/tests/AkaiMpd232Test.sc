@@ -38,6 +38,10 @@ AkaiMpd232Test : DzMidiTest {
 			arg ... args;
 			args.postln;
 		}, 20);
+		d.knobs({
+			arg ... args;
+			args.postln;
+		}, 12);
 
 		d.buttons({
 			arg d;
