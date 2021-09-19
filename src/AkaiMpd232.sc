@@ -56,7 +56,7 @@ AkaiMpd232 : DzMidiAbstractDevice {
 	transport {
 		arg func;
 		var buttons = this.transportCcSymbols();
-		^ responderBuilder.ccSet(func, buttons.keys.postln, 0, buttons, this.srcId(0).postln);
+		^ responderBuilder.ccSet(func, buttons.keys, 0, buttons, this.srcId(0));
 	}
 
 	sliders {

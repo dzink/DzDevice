@@ -165,9 +165,4 @@ DzMidiAbstractDevice {
 		};
 		^ this.destinationIds.at(destinationId);
 	}
-
-	// MIDIFunc shortcuts
-
-
-
 }
