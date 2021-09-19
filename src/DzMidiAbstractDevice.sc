@@ -1,6 +1,7 @@
 DzMidiAbstractDevice {
+	var < connected = false;
 	var <> verbose = false;
-	var midiResponders;
+	var < midiResponders;
 	var cache;
 
 	classvar < deviceName = "";
@@ -39,6 +40,17 @@ DzMidiAbstractDevice {
 		^ this;
 	}
 
+	deviceExists {
+		this.ensureMidiClientIsRunning();
+		if (this.pr_sourcesByDevice.size > 0) {
+			^ true;
+		};
+		if (this.pr_destinationsByDevice.size > 0) {
+			^ true;
+		};
+		^ false;
+	}
+
 	connect {
 		arg inPort = 0, outPort = 0;
 		if (this.hasInput) {
@@ -47,6 +59,7 @@ DzMidiAbstractDevice {
 		if (this.hasOutput) {
 			this.connectOut(outPort);
 		};
+		connected = true;
 		^ this;
 	}
 
