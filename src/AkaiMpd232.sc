@@ -1,7 +1,9 @@
-AkaiMpd232 : DzMidiAbstractDevice {
+AkaiMpd232 : DzMidiDevice {
 	classvar < deviceName = "MPD232";
 	classvar < hasInput = true;
 	classvar < hasOutput = false;
+
+
 
 	padsOn {
 		arg func, padNumbers = 36, channel;

@@ -1,4 +1,4 @@
-KeyStation61MK3 : DzMidiAbstractDevice {
+KeyStation61MK3 : DzMidiDevice {
 	var midiResponders;
 	var cache;
 	classvar < deviceName = "Keystation 61 MK3";

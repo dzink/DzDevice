@@ -1,4 +1,4 @@
-DzMidiAbstractDevice {
+DzMidiDevice {
 	var < connected = false;
 	var <> verbose = false;
 	var < responderBuilder;
