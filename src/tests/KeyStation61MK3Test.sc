@@ -5,16 +5,22 @@ KeyStation61MK3Test : DzMidiTest {
 		var s = Server.default;
 		d = KeyStation61MK3();
 		if (d.deviceExists()) {
-			s.boot;
+			// s.boot;
 			d.connect();
 			// d.verbose = true;
 			// d.connect();
 			// // MIDIFunc.trace(true);
 			//
-			d.transportOn({
-				arg button;
-				[\transport, button, button.name].postln;
+
+			d.play({
+				\play.postln;
 			});
+			d.stop({
+				\stop.postln;
+			});
+			d.record {
+				\record.postln;
+			};
 			d.directionalPad({
 				arg button;
 				[\dpad, button, button.x].postln;
@@ -43,7 +49,7 @@ KeyStation61MK3Test : DzMidiTest {
 				arg ... args;
 				args.postln;
 			});
-			s.sync;
+			// s.sync;
 
 			// [\sources, d.sources].postln;
 			20.wait;

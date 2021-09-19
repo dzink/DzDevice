@@ -32,49 +32,49 @@ KeyStation61MK3 : DzMidiDevice {
 
 	keyOn {
 		arg func, noteNum, chan;
-		^ this.pr_noteOn(func, noteNum, chan, this.srcId(\keys));
+		^ responderBuilder.noteOn(func, noteNum, chan, this.srcId(\keys));
 	}
 
 	keyOff {
 		arg func, noteNum, chan;
-		^ this.pr_noteOn(func, noteNum, chan, this.srcId(\keys));
+		^ responderBuilder.noteOn(func, noteNum, chan, this.srcId(\keys));
 	}
 
 	bend {
 		arg func;
-		^ this.pr_bend(func, 0, this.srcId(\keys), 8192, 0, 61383);
+		^ responderBuilder.bend(func, 0, this.srcId(\keys), 8192, 0, 61383);
 	}
 
 	volume {
 		arg func;
-		^ this.pr_cc(func, 7, 0, this.srcId(\keys));
+		^ responderBuilder.cc(func, 7, 0, this.srcId(\keys));
 	}
 
 	mod {
 		arg func;
-		^ this.pr_cc(func, 1, 0, this.srcId(\keys));
+		^ responderBuilder.cc(func, 1, 0, this.srcId(\keys));
 	}
 
 	enter {
 		arg func;
-		^ this.pr_noteOn(func, 100, nil, this.srcId(\control));
+		^ responderBuilder.noteOn(func, 100, nil, this.srcId(\control));
 	}
 
 	enterOff {
 		arg func;
-		^ this.pr_noteOff(func, 100, nil, this.srcId(\control));
+		^ responderBuilder.noteOff(func, 100, nil, this.srcId(\control));
 	}
 
 	directionalPad {
 		arg func;
 		var buttons = this.directionalPadButtonSymbols();
-		^ this.pr_buttonSetOn(func, buttons.keys, nil, buttons, this.srcId(\control));
+		^ responderBuilder.buttonSetOn(func, buttons.keys, nil, buttons, this.srcId(\control));
 	}
 
 	directionalPadOff {
 		arg func;
 		var buttons = this.directionalPadButtonSymbols();
-		^ this.pr_buttonSetOff(func, buttons.keys, nil, buttons, this.srcId(\control));
+		^ responderBuilder.buttonSetOff(func, buttons.keys, nil, buttons, this.srcId(\control));
 	}
 
 	directionalPadButtonSymbols {
@@ -88,26 +88,19 @@ KeyStation61MK3 : DzMidiDevice {
 		})
 	}
 
-	transportOn {
+	stop {
 		arg func;
-		var buttons = this.transportButtonSymbols();
-		^ this.pr_buttonSetOn(func, buttons.keys, nil, buttons, this.srcId(\control));
+		^ responderBuilder.noteOn(func, 93, 0, this.srcId(\control));
 	}
 
-	transportOff {
+	play {
 		arg func;
-		var buttons = this.transportButtonSymbols();
-		^ this.pr_buttonSetOff(func, buttons.keys, nil, buttons, this.srcId(\control));
+		^ responderBuilder.noteOn(func, 94, 0, this.srcId(\control));
 	}
 
-	transportButtonSymbols {
-		^ cache.at(\transportButtonSymbols, {
-			IdentityDictionary[
-				93 -> SymbolDictionary[\noteNum -> 93, \name -> \stop].lock,
-				94 -> SymbolDictionary[\noteNum -> 94, \name -> \play].lock,
-				95 -> SymbolDictionary[\noteNum -> 95, \name -> \record].lock,
-			];
-		})
+	record {
+		arg func;
+		^ responderBuilder.noteOn(func, 95, 0, this.srcId(\control));
 	}
 
 }

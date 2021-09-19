@@ -55,12 +55,6 @@ AkaiMpd232 : DzMidiDevice {
 		};
 	}
 
-	transport {
-		arg func;
-		var buttons = this.transportCcSymbols();
-		^ responderBuilder.ccSet(func, buttons.keys, 0, buttons, this.srcId(0));
-	}
-
 	sliders {
 		arg func, firstCc = 20, chan;
 		^ responderBuilder.ccArray(func, firstCc, 8, chan, this.srcId(0), "Slider %");
@@ -91,32 +85,5 @@ AkaiMpd232 : DzMidiDevice {
 		^ responderBuilder.cc(func, 119, 0, this.srcId(0));
 	}
 
-	transportCcSymbols {
-		^ cache.at(\transportCcSymbols, {
-			IdentityDictionary[
-				117 -> this.stopCcSymbol(),
-				118 -> this.playCcSymbol(),
-				119 -> this.recordCcSymbol(),
-			];
-		});
-	}
-
-	stopCcSymbol {
-		^ cache.at(\playCcSymbol, {
-			SymbolDictionary[\noteNum -> 117, \name -> \stop].lock;
-		})
-	}
-
-	playCcSymbol {
-		^ cache.at(\playCcSymbol, {
-			SymbolDictionary[\noteNum -> 118, \name -> \play].lock;
-		})
-	}
-
-	recordCcSymbol {
-		^ cache.at(\recordCcSymbol, {
-			SymbolDictionary[\noteNum -> 119, \name -> \record].lock;
-		})
-	}
 
 }
