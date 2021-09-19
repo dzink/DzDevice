@@ -30,63 +30,83 @@ KeyStation61MK3 : DzMidiAbstractDevice {
 		^ [\keys, \control];
 	}
 
+	keyOn {
+		arg func, noteNum, chan;
+		^ this.pr_noteOn(func, noteNum, chan, this.srcId(\keys));
+	}
+
+	keyOff {
+		arg func, noteNum, chan;
+		^ this.pr_noteOn(func, noteNum, chan, this.srcId(\keys));
+	}
+
 	bend {
 		arg func;
-		^ super.bend(func, 0, keySrcId, 8192, 0, 61383);
+		^ this.pr_bend(func, 0, this.srcId(\keys), 8192, 0, 61383);
 	}
 
 	volume {
 		arg func;
-		^ this.cc(func, 7, 0, keySrcId);
+		^ this.pr_cc(func, 7, 0, this.srcId(\keys));
 	}
 
 	mod {
 		arg func;
-		^ this.cc(func, 1, 0, keySrcId);
+		^ this.pr_cc(func, 1, 0, this.srcId(\keys));
 	}
 
-  //16383 8192 0
-	directionalPadOn {
+	enter {
+		arg func;
+		^ this.pr_noteOn(func, 100, nil, this.srcId(\control));
+	}
+
+	enterOff {
+		arg func;
+		^ this.pr_noteOff(func, 100, nil, this.srcId(\control));
+	}
+
+	directionalPad {
 		arg func;
 		var buttons = this.directionalPadButtonSymbols();
-		^ this.pr_buttonSetOn(func, (96..100), nil, buttons, controlSrcId);
+		^ this.pr_buttonSetOn(func, buttons.keys, nil, buttons, this.srcId(\control));
+	}
+
+	directionalPadOff {
+		arg func;
+		var buttons = this.directionalPadButtonSymbols();
+		^ this.pr_buttonSetOff(func, buttons.keys, nil, buttons, this.srcId(\control));
 	}
 
 	directionalPadButtonSymbols {
 		^ cache.at(\directionalPadButtonSymbols, {
-			var symbols = IdentityDictionary[
-				96 -> SymbolDictionary[\noteNum -> 96, \name -> \up, \x -> 0, \y -> -1, \isEnter -> false],
-				97 -> SymbolDictionary[\noteNum -> 97, \name -> \down, \x -> 0, \y -> 1, \isEnter -> false],
-				98 -> SymbolDictionary[\noteNum -> 98, \name -> \left, \x -> -1, \y -> 0, \isEnter -> false],
-				99 -> SymbolDictionary[\noteNum -> 99, \name -> \right, \x -> 1, \y -> 0, \isEnter -> false],
-				100 -> SymbolDictionary[\noteNum -> 100, \name -> \enter, \x -> 0, \y -> -1, \isEnter -> true],
+			IdentityDictionary[
+				96 -> SymbolDictionary[\noteNum -> 96, \name -> \up, \x -> 0, \y -> -1].lock,
+				97 -> SymbolDictionary[\noteNum -> 97, \name -> \down, \x -> 0, \y -> 1].lock,
+				98 -> SymbolDictionary[\noteNum -> 98, \name -> \left, \x -> -1, \y -> 0].lock,
+				99 -> SymbolDictionary[\noteNum -> 99, \name -> \right, \x -> 1, \y -> 0].lock,
 			];
-			symbols.do {
-				arg symbol;
-				symbol.lock();
-			};
-			symbols;
 		})
 	}
 
 	transportOn {
 		arg func;
 		var buttons = this.transportButtonSymbols();
-		^ this.pr_buttonSetOn(func, (93..95), nil, buttons, controlSrcId);
+		^ this.pr_buttonSetOn(func, buttons.keys, nil, buttons, this.srcId(\control));
+	}
+
+	transportOff {
+		arg func;
+		var buttons = this.transportButtonSymbols();
+		^ this.pr_buttonSetOff(func, buttons.keys, nil, buttons, this.srcId(\control));
 	}
 
 	transportButtonSymbols {
 		^ cache.at(\transportButtonSymbols, {
-			var symbols = IdentityDictionary[
-				93 -> SymbolDictionary[\noteNum -> 93, \name -> \stop],
-				94 -> SymbolDictionary[\noteNum -> 94, \name -> \play],
-				95 -> SymbolDictionary[\noteNum -> 95, \name -> \record],
+			IdentityDictionary[
+				93 -> SymbolDictionary[\noteNum -> 93, \name -> \stop].lock,
+				94 -> SymbolDictionary[\noteNum -> 94, \name -> \play].lock,
+				95 -> SymbolDictionary[\noteNum -> 95, \name -> \record].lock,
 			];
-			symbols.do {
-				arg symbol;
-				symbol.lock();
-			};
-			symbols;
 		})
 	}
 
