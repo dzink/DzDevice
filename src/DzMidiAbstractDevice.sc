@@ -63,6 +63,9 @@ DzMidiDevice {
 		^ false;
 	}
 
+	/**
+	Connect this device to the CPU's MIDI system.
+	**/
 	connect {
 		arg inPort = 0, outPort = 0;
 		if (this.hasInput) {

@@ -39,10 +39,10 @@ DzMidiResponderBuilder {
 
 
 	/**
-	 * I HATE the way that bend is scaled in MIDI
-	 * The math is always slightly off.
-	 * This makes it a simple and accurate -1..0..1 (and also allows for some wonkier wheels that have sloppy centers).
-	 */
+		I HATE the way that bend is scaled in MIDI
+		The math is always slightly off.
+		This makes it a simple and accurate -1..0..1 (and also allows for some wonkier wheels that have sloppy centers).
+	**/
 	bend  {
 		arg func, chan, sourceSelect, center = 8192, min = 0, max = 16383, centerRange = 0;
 		var responder;
@@ -69,9 +69,9 @@ DzMidiResponderBuilder {
 	}
 
 	/**
-	 * Responds to a group of buttons mapped to NoteOn midi controls.
-	 * Instead of giving a weird array of notes and vels, gives a more meaningful set of arguments.
-	 */
+		Responds to a group of buttons mapped to NoteOn midi controls.
+		Instead of giving a weird array of notes and vels, gives a more meaningful set of arguments.
+	**/
 	pr_buttonSetNote {
 		arg method = \noteOn, func, noteRange, chan, buttonDefs, sourceSelect;
 		var innerFunc = {
