@@ -2,7 +2,7 @@ AkaiMpd232Test : DzMidiTest {
 
 	test_midi {
 		var out;
-		var d = AkaiMpd232();
+		var d = AkaiMpd232.allocate();
 		if (d.deviceExists) {
 
 			d.connect;

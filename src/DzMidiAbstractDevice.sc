@@ -10,11 +10,14 @@ DzMidiDevice {
 	classvar < hasOutput = false;
 
 	*new {
-		^ super.new.initializeAbstractMidiDevice();
+		^ this.allocate.connect();
 	}
 
-	*connect {
-		^ this.new.connect();
+	/**
+	Initialize but do not connect yet.
+	**/
+	*allocate {
+		^ super.new.initializeAbstractMidiDevice();
 	}
 
 	deviceName {
@@ -42,13 +45,20 @@ DzMidiDevice {
 		^ this;
 	}
 
+	/**
+	Reports whether the device exists.
+	**/
 	deviceExists {
-		this.ensureMidiClientIsRunning();
-		if (this.pr_sourcesByDevice.size > 0) {
-			^ true;
-		};
-		if (this.pr_destinationsByDevice.size > 0) {
-			^ true;
+		try {
+			this.ensureMidiClientIsRunning();
+			if (this.pr_sourcesForDevice.size > 0) {
+				^ true;
+			};
+			if (this.pr_destinationsForDevice.size > 0) {
+				^ true;
+			};
+		} {
+			^ false;
 		};
 		^ false;
 	}

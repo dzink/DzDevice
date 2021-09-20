@@ -3,14 +3,9 @@ KeyStation61MK3Test : DzMidiTest {
 
 	test_midi {
 		var s = Server.default;
-		d = KeyStation61MK3();
+		d = KeyStation61MK3.allocate();
 		if (d.deviceExists()) {
-			// s.boot;
 			d.connect();
-			// d.verbose = true;
-			// d.connect();
-			// // MIDIFunc.trace(true);
-			//
 
 			d.play({
 				\play.postln;
@@ -49,9 +44,7 @@ KeyStation61MK3Test : DzMidiTest {
 				arg ... args;
 				args.postln;
 			});
-			// s.sync;
-
-			// [\sources, d.sources].postln;
+			
 			20.wait;
 		}
 	}
