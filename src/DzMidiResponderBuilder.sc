@@ -103,8 +103,7 @@ DzMidiResponderBuilder {
 	}
 
 	ccArray {
-		arg func, firstCc = 20, length = 8, chan, srcId, nameFormat = "Control %";
-		var ccNums = (firstCc..(firstCc + length - 1));
+		arg func, ccNums, chan, srcId, nameFormat = "Control %";
 		var ccDefs = IdentityDictionary[];
 		ccNums.do {
 			arg ccNum, i;

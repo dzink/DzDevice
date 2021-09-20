@@ -165,4 +165,12 @@ DzMidiDevice {
 		};
 		^ this.destinationIds.at(destinationId);
 	}
+
+	extendNumbersToArray {
+		arg first = 0, length = 8;
+		if (first.isKindOf(Number)) {
+			first = first + (0..(length - 1));
+		};
+		^ first;
+	}
 }
