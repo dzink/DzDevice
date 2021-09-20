@@ -1,4 +1,4 @@
-KeyStation61MK3Test : DzMidiTest {
+KeyStation61MK3Test : DzDeviceTest {
 	var d;
 
 	test_midi {

@@ -1,3 +1,3 @@
-DzMidiTest : UnitTest {
-	
+DzDeviceTest : UnitTest {
+
 }

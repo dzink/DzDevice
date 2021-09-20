@@ -1,4 +1,4 @@
-AkaiMpd232Test : DzMidiTest {
+AkaiMpd232Test : DzDeviceTest {
 
 	test_midi {
 		var out;

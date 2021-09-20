@@ -1,7 +1,7 @@
 #! /usr/local/bin/sclang -D
 
 (
-var testClass = DzMidiTest;
+var testClass = DzDeviceTest;
 var timeout = 10;
 var timeoutIncrement = 0.5;
 var report = false;
