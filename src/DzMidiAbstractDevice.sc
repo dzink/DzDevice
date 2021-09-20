@@ -88,36 +88,44 @@ DzMidiDevice {
 	connectOut {
 		arg port = 0;
 		this.ensureMidiClientIsRunning();
-		this.sources.do {
-			arg source;
-			MIDIIn.connect(port, source.asMIDIInPortUID);
+		this.destinations.do {
+			arg destinations;
+			MIDIOut.connect(port, destinations.asMIDIInPortUID);
 		};
 		^ this;
 	}
 
+	/**
+	Retrieve endpoints for this device as a source.
+	Each device SHOULD implement this in its own way.
+	**/
 	sources {
 		^ cache.at(\sources, {
-			this.pr_sourcesByDevice
+			this.pr_sourcesForDevice
 		});
 	}
 
+	/**
+	Retrieve endpoints for this device as a destination.
+	Each device SHOULD implement this in its own way.
+	**/
 	destinations {
 		^ cache.at(\destinations, {
-			this.pr_destinationsByDevice
+			this.pr_destinationsForDevice
 		});
 	}
 
-	findSource {
+	findSourceEndpoint {
 		arg name;
-		^ this.pr_findEndpointByName(this.pr_sourcesByDevice, name);
+		^ this.pr_findEndpointByName(this.pr_sourcesForDevice.postln, name);
 	}
 
-	findDestination {
+	findDestinationEndpoint {
 		arg name;
-		^ this.pr_findEndpointByName(this.pr_destinationsByDevice, name);
+		^ this.pr_findEndpointByName(this.pr_destinationsForDevice, name);
 	}
 
-	pr_endpointsByDevice {
+	pr_endpointsForDevice {
 		arg endpoints;
 		var name = this.deviceName();
 		^ endpoints.select {
@@ -137,17 +145,26 @@ DzMidiDevice {
 		Exception("% could not find an endpoint with the name %".format(this.class, name)).throw();
 	}
 
-	pr_sourcesByDevice {
-		^ this.pr_endpointsByDevice(MIDIClient.sources);
+	pr_sourcesForDevice {
+		^ this.pr_endpointsForDevice(MIDIClient.sources);
 	}
 
-	pr_destinationsByDevice {
-		^ this.pr_endpointsByDevice(MIDIClient.destinations);
+	pr_destinationsForDevice {
+		^ this.pr_endpointsForDevice(MIDIClient.destinations);
 	}
 
 	sourceIds {
 		^ cache.at(\sourceIds, {
 			this.sources.collect {
+				arg device;
+				device.uid;
+			}
+		});
+	}
+
+	destinationIds {
+		^ cache.at(\destinationIds, {
+			this.destinations.collect {
 				arg device;
 				device.uid;
 			}

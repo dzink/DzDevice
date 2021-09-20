@@ -49,7 +49,9 @@ AkaiMpd232Test : DzMidiTest {
 				[\boff, d].postln;
 			});
 		};
-		// out = MIDIOut.connect(0, d.destinationId(0).postln);
+		out = MIDIOut(0, d.destinationId(0).postln);
+		out.noteOn(0, 38, 127);
+		out.noteOn(0, 3, 127);
 		2000.wait;
 	}
 

@@ -20,8 +20,8 @@ KeyStation61MK3 : DzMidiDevice {
 	sources {
 		^ cache.at(\sources, {
 			[
-				this.findSource(this.keyName),
-				this.findSource(this.controlName),
+				this.findSourceEndpoint(this.keyName),
+				this.findSourceEndpoint(this.controlName),
 			]
 		});
 	}
