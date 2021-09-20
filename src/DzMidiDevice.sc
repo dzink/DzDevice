@@ -4,6 +4,7 @@ DzMidiDevice {
 	var < responderBuilder;
 	var < midiResponders;
 	var cache;
+	var < outs;
 
 	classvar < deviceName = "";
 	classvar < hasInput = false;
