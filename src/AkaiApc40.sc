@@ -1,6 +1,7 @@
 AkaiApc40 : DzMidiDevice {
 	var < midiOut;
 	var < currentCueLevel = 0;
+	var < modifiers;
 
 	classvar < deviceName = "Akai APC40";
 	classvar < hasInput = true;
@@ -27,6 +28,16 @@ AkaiApc40 : DzMidiDevice {
 	classvar < ringStyleSingle = 1;
 	classvar < ringStyleVolume = 2;
 	classvar < ringStylePan = 3;
+
+	*new {
+		^ super.new.initAkaiApc40();
+	}
+
+	initAkaiApc40 {
+		modifiers = IdentityDictionary();
+		this.setAbletonMode2();
+		this.pr_addSingleButtonMethods();
+	}
 
 	pr_buttonNotes {
 		^ cache.at(\buttonNotes, {
@@ -639,6 +650,33 @@ AkaiApc40 : DzMidiDevice {
 		^ color;
 	}
 
+	getModifierCombo {
+		arg ... modifierIds;
+		modifierIds.do {
+			arg modifierId;
+			if (modifiers[modifierId] != true) {
+				^ false;
+			};
+		}
+		^ true;
+	}
 
+	setModifier {
+		arg modifierId, state = true;
+		modifiers[modifierId] = state;
+		^ this;
+	}
+
+	initializeModifier {
+		arg modifierId, initialState = false;
+		this.setModifier(modifierId, initialState);
+		this.perform((modifierId ++ 'On').asSymbol, {
+			this.setModifier(modifierId, true);
+		});
+		this.perform((modifierId ++ 'Off').asSymbol, {
+			this.setModifier(modifierId, false);
+		});
+		^ this;
+	}
 
 }

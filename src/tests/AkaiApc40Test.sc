@@ -25,7 +25,11 @@ AkaiMpc40Test : DzDeviceTest {
 		d.deviceControlRingType(4, \pan);
 		d.masterLight(\flash);
 		d.sceneLaunchLight(2, \flash);
-
+		d.initializeModifier(\shift);
+		d.initializeModifier(\master);
+		d.clipLaunchOn({
+			d.getModifierCombo(\shift, \master).postln;
+		});
 		\clipt.postln;
 
 		// (0..127).do {
