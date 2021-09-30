@@ -92,9 +92,9 @@ DzMidiDevice {
 	connectOut {
 		arg port = 0;
 		this.ensureMidiClientIsRunning();
-		this.destinations.do {
-			arg destinations;
-			MIDIOut.connect(port, destinations.asMIDIInPortUID);
+		outs = this.destinations.collect {
+			arg destination;
+			destination.connect();
 		};
 		^ this;
 	}
