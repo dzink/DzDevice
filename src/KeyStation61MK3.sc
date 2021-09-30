@@ -44,7 +44,7 @@ KeyStation61MK3 : DzMidiDevice {
 
 	bend {
 		arg func;
-		^ responderBuilder.bend(func, 0, this.srcId(\keys), 8192, 0, 61383);
+		^ responderBuilder.bend(func, 0, this.srcId(\keys), 8192, 0, 16383);
 	}
 
 	volume {
