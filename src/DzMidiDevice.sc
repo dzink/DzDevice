@@ -204,4 +204,24 @@ DzMidiDevice {
 		};
 		^ first;
 	}
+
+	pr_wrapFunctionForNoteDef {
+		arg func;
+		^ {
+			arg vel, note, chan;
+			var noteDef = this.pr_buildNoteDef(vel, note, chan);
+			[\prnd, noteDef].postln;
+			func.value(noteDef, note, vel, chan);
+		};
+	}
+
+	pr_buildNoteDef {
+		arg vel, note, chan;
+		\buildin.postln;
+		^ SymbolDictionary[
+			\note -> note,
+			\vel -> vel,
+			\chan -> chan,
+		].lock.postln;
+	}
 }

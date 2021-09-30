@@ -31,13 +31,15 @@ KeyStation61MK3 : DzMidiDevice {
 	}
 
 	keyOn {
-		arg func, noteNum, chan;
-		^ responderBuilder.noteOn(func, noteNum, chan, this.srcId(\keys));
+		arg func, noteRange, chan;
+		func = this.pr_wrapFunctionForNoteDef(func);
+		^ responderBuilder.noteOn(func, noteRange, chan, this.srcId(\keys));
 	}
 
 	keyOff {
-		arg func, noteNum, chan;
-		^ responderBuilder.noteOn(func, noteNum, chan, this.srcId(\keys));
+		arg func, noteRange, chan;
+		func = this.pr_wrapFunctionForNoteDef(func);
+		^ responderBuilder.noteOff(func, noteRange, chan, this.srcId(\keys));
 	}
 
 	bend {
