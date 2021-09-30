@@ -37,6 +37,37 @@ These work precisely how you'd expect them to. The run whatever function when th
 
 ### M-Audio Keystation 61 MK3 keyboard
 
+```
+var m = SynthManager(\test);
+var k = KeyStation61MK3();
+k.keyOn({
+  arg vel, noteNum;
+  m.trigger(baseData ++ IdentityDictionary[
+    \note -> noteNum,
+    \vel -> vel,
+  ]);
+});
+k.keyOff({
+  arg vel, noteNum;
+  m.release(IdentityDictionary[
+    \note -> noteNum,
+    ]);
+});
+k.mod({
+  arg mod;
+  mod.postln;
+  mod = mod.asFloat.postln.linexp(0, 127, 0.5, 5);
+  m.setAllNodes(IdentityDictionary[\wahFreq -> mod]);
+  baseData[\wahFreq] = mod;
+});
+k.bend({
+  arg mod ... args;
+  mod = (mod.postln * 5).softStep(1, -3);
+  args.postln;
+  m.setAllNodes(IdentityDictionary[\bend -> mod]);
+  baseData[\bend] = mod;
+});
+
 #### Keyboard responders
 `.keyOn()`, `.keyOff()`
 
