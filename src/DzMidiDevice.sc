@@ -208,19 +208,19 @@ DzMidiDevice {
 	pr_wrapFunctionForNoteDef {
 		arg func;
 		^ {
-			arg vel, note, chan;
-			var noteDef = this.pr_buildNoteDef(vel, note, chan);
+			arg velocity, note, chan;
+			var noteDef = this.pr_buildNoteDef(velocity, note, chan);
 			[\prnd, noteDef].postln;
-			func.value(noteDef, note, vel, chan);
+			func.value(noteDef, note, velocity, chan);
 		};
 	}
 
 	pr_buildNoteDef {
-		arg vel, note, chan;
+		arg velocity, note, chan;
 		\buildin.postln;
 		^ SymbolDictionary[
 			\note -> note,
-			\vel -> vel,
+			\velocity -> velocity,
 			\chan -> chan,
 		].lock.postln;
 	}

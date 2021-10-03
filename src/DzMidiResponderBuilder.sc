@@ -75,8 +75,8 @@ DzMidiResponderBuilder {
 	pr_buttonSetNote {
 		arg method = \noteOn, func, noteRange, chan, buttonDefs, sourceSelect;
 		var innerFunc = {
-			arg vel, noteNum;
-			func.value(buttonDefs[noteNum], noteNum, vel);
+			arg velocity, noteNum;
+			func.value(buttonDefs[noteNum], noteNum, velocity);
 		};
 		^ this.perform(method, innerFunc, noteRange, chan, sourceSelect: sourceSelect);
 	}

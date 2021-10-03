@@ -8,10 +8,10 @@ AkaiMpd232 : DzMidiDevice {
 	 Respond to pad noteOn events.
 
 	 @param Function func is a function to evaluate that takes the following args:
-	   @args noteDef, note, vel, channel
+	   @args noteDef, note, velocity, channel
 	   noteDef will respond with a SymbolDictionary with helpful parameters. The positional parameters x, y, pan, and zoom assume that the numbers start in the lower left hand corner and rise up going to the right, and then up a row etc.
 	     note: the midi note
-	     vel: the velocity of the button
+	     velocity: the velocity of the button
 	     index: the id from 0..15 of the button
 	     x: the x value from 0..3 of the button
 	     y: the y value from 0..3 of the button
@@ -56,20 +56,20 @@ AkaiMpd232 : DzMidiDevice {
 	pr_padInnerFunction {
 		arg func, padNumbers;
 		^ {
-			arg vel, note, channel;
+			arg velocity, note, channel;
 			var index = padNumbers.indexOf(note);
 			var x = (index % 4);
 			var y = (index / 4).asInteger;
 			var noteDef = SymbolDictionary[
 				\note -> note,
-				\vel -> vel,
+				\velocity -> velocity,
 				\index -> index,
 				\x -> x,
 				\y -> y,
 				\pan -> x.linlin(0, 3, -1, 1),
 				\zoom -> y.linlin(0, 3, -1, 1),
 			].lock;
-			func.value(noteDef, note, vel, channel);
+			func.value(noteDef, note, velocity, channel);
 		};
 	}
 
