@@ -1,6 +1,6 @@
 AkaiApc40 : DzMidiDevice {
 	var < midiOut;
-	var < currentCueLevel = 0;
+	var < currentCueLevel = 64;
 	var < modifiers;
 
 	classvar < deviceName = "Akai APC40";
@@ -382,11 +382,17 @@ AkaiApc40 : DzMidiDevice {
 			} {
 				value
 			};
-			currentCueLevel = currentCueLevel + difference;
 			controlDef = this.pr_cueLevelDef(value, difference, ccNum, channel, srcId);
 			func.value(controlDef, value, ccNum, channel, srcId);
 		};
 		this.responderBuilder.cc(innerFunc, 47, 0, this.srcId(0));
+	}
+
+	trackCueLevel {
+		^ this.cueLevel {
+			arg controlDef;
+			currentCueLevel = (currentCueLevel + controlDef[\difference]).clip(0, 127);
+		};
 	}
 
 	// BUTTON/SLIDER DEFS
@@ -433,7 +439,7 @@ AkaiApc40 : DzMidiDevice {
 		var y = note - 53;
 		^ SymbolDictionary[
 			\note -> note,
-			\velocity -> velocity,
+			\velocity -> currentCueLevel,
 			\channel -> channel,
 			\srcId -> srcId,
 			\track -> channel,
