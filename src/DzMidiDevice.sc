@@ -121,7 +121,7 @@ DzMidiDevice {
 
 	findSourceEndpoint {
 		arg name;
-		^ this.pr_findEndpointByName(this.pr_sourcesForDevice.postln, name);
+		^ this.pr_findEndpointByName(this.pr_sourcesForDevice, name);
 	}
 
 	findDestinationEndpoint {
@@ -210,18 +210,16 @@ DzMidiDevice {
 		^ {
 			arg velocity, note, chan;
 			var noteDef = this.pr_buildNoteDef(velocity, note, chan);
-			[\prnd, noteDef].postln;
 			func.value(noteDef, note, velocity, chan);
 		};
 	}
 
 	pr_buildNoteDef {
 		arg velocity, note, chan;
-		\buildin.postln;
 		^ SymbolDictionary[
 			\note -> note,
 			\velocity -> velocity,
 			\chan -> chan,
-		].lock.postln;
+		].lock;
 	}
 }

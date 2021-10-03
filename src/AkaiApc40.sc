@@ -209,11 +209,7 @@ AkaiApc40 : DzMidiDevice {
 		var bundle = List[0xf0, 0x47, 0x00, 0x73, 0x60, 0x00, 0x04] ++ List[modeKey] ++ List[0x08, 0x02, 0x01, 0xf7];
 		// bundle.insert(7, modeKey);
 		bundle = Int8Array.newFrom(bundle);
-		Int8Array[0xf0, 0x00, 0x20, 0x3c, 0x02, 0x00, 0x61, 21, 54, 0xf7].postln;
-		[\bun, bundle].postln;
-		outs.postln;
-		midiOut.postln.sysex(bundle);
-		\success.postln;
+		midiOut.sysex(bundle);
 	}
 
 	desintations {
